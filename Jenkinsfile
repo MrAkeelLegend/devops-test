@@ -43,8 +43,8 @@ pipeline {
         
         steps {
             // Stop and remove any existing container with the same name on the remote server
-            // sh "ssh-agent bash -c 'ssh-add /var/jenkins_home/devops-key; ssh -p $REMOTE_PORT -o StrictHostKeyChecking=no -i /var/jenkins_home/devops-key $REMOTE_USER@$REMOTE_SERVER \"docker stop $REMOTE_CONTAINER_NAME || true\"'"
-            // sh "ssh-agent bash -c 'ssh-add /var/jenkins_home/devops-key; ssh -p $REMOTE_PORT -o StrictHostKeyChecking=no -i /var/jenkins_home/devops-key $REMOTE_USER@$REMOTE_SERVER \"docker rm $REMOTE_CONTAINER_NAME || true\"'"
+            sh "ssh-agent bash -c 'ssh-add /var/jenkins_home/devops-key; ssh -p $REMOTE_PORT -o StrictHostKeyChecking=no -i /var/jenkins_home/devops-key $REMOTE_USER@$REMOTE_SERVER \"docker stop $REMOTE_CONTAINER_NAME || true\"'"
+            sh "ssh-agent bash -c 'ssh-add /var/jenkins_home/devops-key; ssh -p $REMOTE_PORT -o StrictHostKeyChecking=no -i /var/jenkins_home/devops-key $REMOTE_USER@$REMOTE_SERVER \"docker rm $REMOTE_CONTAINER_NAME || true\"'"
             
             // Run the Docker container with the published image on the remote server
             sh "ssh-agent bash -c 'ssh-add /var/jenkins_home/devops-key; ssh -p $REMOTE_PORT -o StrictHostKeyChecking=no -i /var/jenkins_home/devops-key $REMOTE_USER@$REMOTE_SERVER \"docker run -d -p $PORT_MAPPING --name $REMOTE_CONTAINER_NAME $DOCKER_IMAGE\"'"

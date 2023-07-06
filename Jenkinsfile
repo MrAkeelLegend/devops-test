@@ -25,7 +25,7 @@ pipeline {
         sh 'docker build -t akeellegend/devops-test:latest .'
         
         // Publish the Docker image to Docker Hub
-        sh 'docker push keellegend/devops-test:latest'
+        sh 'docker push akeellegend/devops-test:latest'
       }
     }
 

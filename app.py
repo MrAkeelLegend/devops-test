@@ -15,9 +15,9 @@ LOGGED_IN = False
 
 # AWS Cognito configuration
 COGNITO_REGION = 'us-east-1'
-COGNITO_USER_POOL_ID = 'us-east-1_SCaTHBY3j'
-COGNITO_APP_CLIENT_ID = '260vvuira6dj4eu082v0msg4v5'
-COGNITO_APP_CLIENT_SECRET = 'lcec3r6fclpk5iho1slddier8bned8irgcdst0henjc2nhaiof'
+COGNITO_USER_POOL_ID = 'us-east-1_8q7WbmCah'
+COGNITO_APP_CLIENT_ID = '4lkrkfeorfhlp0coig0167hkbu'
+COGNITO_APP_CLIENT_SECRET = '1de2alvniah2d6hneic812lq7nrqmftmpki84lkv8jsn0s7vutd'
 
 
 
@@ -101,4 +101,4 @@ def members_only():
 
 
 if __name__ == '__main__':
-    app.run(port=5001)
+    app.run(host='0.0.0.0', port=5001)

@@ -53,3 +53,46 @@ output "app_client_id" {
   value = aws_cognito_user_pool_client.client.id
 
 }
+
+
+
+####################################################
+
+
+
+
+resource "local_file" "devops-test-key" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "devops-key"
+}
+
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+
+
+resource "aws_key_pair" "devops-test-key" {
+  key_name   = "devops-test-key"  # Replace with your desired key name
+  public_key = tls_private_key.rsa.public_key_openssh  # Replace with the path to your public SSH key file
+}
+
+resource "aws_instance" "ubuntu_instance" {
+  ami           = "ami-053b0d53c279acc90"  # Replace with the desired Ubuntu AMI ID
+  instance_type = "t2.micro"           # Replace with the desired instance type
+  key_name      = aws_key_pair.devops-test-key.key_name
+  vpc_security_group_ids = []
+
+  user_data = <<-EOF
+              #!/bin/bash
+              apt-get update
+              apt-get install -y docker.io
+              systemctl start docker
+              EOF
+
+
+  tags = {
+    Name = "devops-test-app"
+  }
+}
